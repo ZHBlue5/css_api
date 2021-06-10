@@ -20,7 +20,14 @@ import java.util.Map;
 @Component
 @Slf4j
 public class Api {
+    /**
+     * 接口地址
+     */
     private static final String API_URL = "https://ar.css.dgut.edu.cn/api";
+    /**
+     *  获取学生信息
+     */
+    public static final String STUDENT_INFO="/student";
 
     @Value("${api.secret}")
     private String API_SECRET;
@@ -32,9 +39,6 @@ public class Api {
      * 请求成功返回的code
      */
     public static final Integer SUCCESS_CODE = 1000;
-    /**
-     * 允许每秒最多1个任务
-     */
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ApiResult send(String requestUrl, Map data) throws Exception {
