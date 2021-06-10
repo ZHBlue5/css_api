@@ -5,9 +5,11 @@ import cn.dgut.edu.css.api.http.HttpClientResult;
 import cn.dgut.edu.css.api.http.HttpClientUtils;
 import cn.dgut.edu.css.api.util.FastJsonUtils;
 import cn.dgut.edu.css.api.util.Md5;
+import cn.dgut.edu.css.api.util.Util;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -20,15 +22,16 @@ import java.util.Map;
 @Slf4j
 public class Api {
     private static final String API_URL = "https://ar.css.dgut.edu.cn/api";
-    /**
-     * 正式
-     */
-    private static final String API_KEY = "ar系统提供";
-    /**
-     * 正式
-     */
-    private static final String API_SECRET = "ar系统提供";
 
+    @Value("${api.secret}")
+    private String API_SECRET;
+
+    @Value("${api.apikey}")
+    private String API_KEY;
+
+    /**
+     * 请求成功返回的code
+     */
     public static final Integer SUCCESS_CODE = 1000;
     /**
      * 允许每秒最多1个任务
@@ -40,7 +43,7 @@ public class Api {
          * 请求令牌,超过许可会被阻塞
          */
         data.put("timestamp", String.valueOf(System.currentTimeMillis()));
-        data.put("noncestr", RandomUtil.randomString(15));
+        data.put("noncestr", Util.getRandomString(20));
         String signature = sign(data);
         Map<String, String> headers = new HashMap<>();
         headers.put("apiKey", API_KEY);
