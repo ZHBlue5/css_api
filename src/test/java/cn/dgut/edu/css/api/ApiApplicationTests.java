@@ -21,6 +21,7 @@ class ApiApplicationTests {
     void contextLoads() {
     }
 
+    @Test
     void test() throws Exception {
 
         ApiResult apiResult = api.send(Api.STUDENT_INFO, new HashMap<String, String>() {
