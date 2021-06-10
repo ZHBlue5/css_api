@@ -6,7 +6,6 @@ import cn.dgut.edu.css.api.http.HttpClientUtils;
 import cn.dgut.edu.css.api.util.FastJsonUtils;
 import cn.dgut.edu.css.api.util.Md5;
 import cn.dgut.edu.css.api.util.Util;
-import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
