@@ -1,10 +1,20 @@
 package cn.dgut.edu.css.api.ar;
 
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.util.Map;
+
+import static cn.dgut.edu.css.api.ar.Api.SUCCESS_CODE;
+
 /**
  * @author ZHBlue
  * @description api return data
  * @Date 2019/2/14 13:51
  */
+@Data
+@Accessors(chain = true)
 public class ApiResult {
     /**
      * @Author ZHBlue
@@ -26,30 +36,13 @@ public class ApiResult {
      **/
     private Object data;
 
-    public ApiResult() {
-
-    }
-
-    public ApiResult(int ret, String msg) {
-        this.msg = msg;
-        this.code = ret;
-    }
-
-    public ApiResult(int ret, String msg, Object data) {
-        this.code = ret;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
-
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public Object getData() {
-        return this.data;
-    }
+   public static  ApiResult build(String content){
+       Map res = JSON.parseObject(content, Map.class);
+       if (!SUCCESS_CODE.equals(res.get("code"))) {
+           return new ApiResult().setCode(Integer.parseInt(res.get("code").toString()))
+                   .setMsg(res.get("msg").toString());
+       }
+       return new ApiResult().setCode(Integer.parseInt(res.get("code").toString()))
+               .setMsg(res.get("msg").toString()).setData(res.get("data"));
+   }
 }

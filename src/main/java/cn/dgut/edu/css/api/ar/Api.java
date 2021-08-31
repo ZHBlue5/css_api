@@ -59,11 +59,7 @@ public class Api {
             put("result", result.toString());
         }}));
         if (result.getCode() == 200) {
-            Map res = JSON.parseObject(result.getContent(), Map.class);
-            if (!SUCCESS_CODE.equals(res.get("code"))) {
-                return new ApiResult((int) res.get("code"), (String) res.get("msg"));
-            }
-            return new ApiResult((int) res.get("code"), (String) res.get("msg"), res.get("data"));
+           return  ApiResult.build(result.getContent());
         } else if (result.getCode() == 429) {
             throw new Exception("too many requests");
         }
